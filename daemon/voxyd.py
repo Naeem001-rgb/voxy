@@ -416,11 +416,23 @@ _PASTE_MODS = {KEY_LEFTCTRL, KEY_RIGHTCTRL, KEY_LEFTSHIFT, KEY_RIGHTSHIFT}
 
 
 def _paste_mods_ok(held: set[int], trigger: frozenset[int]) -> bool:
-    """True when the mods held around a V press look like a paste chord:
-    ctrl (optionally + shift) and nothing else beyond them and V itself."""
+    """True when the held mods look like a PURE paste chord: ctrl+V or
+    ctrl+shift+V where ctrl+shift is NOT the trigger — anything else
+    (extra keys, or the trigger's own chord) returns False.
+
+    The trigger rejection is the load-bearing part: with the default
+    ctrlshift trigger, Ctrl+Shift+V must be handed to the terminal untouched.
+    Without the check, the chord stays armed through V and fires on the
+    mod release — voxy toggled every time the user pasted in a terminal.
+    """
     mods = held & _PASTE_MODS
     if not (KEY_LEFTCTRL in mods or KEY_RIGHTCTRL in mods):
         return False
+    if trigger <= held:  # this is the user's dictation chord, not a paste
+        return False
+    if KEY_LEFTSHIFT in mods or KEY_RIGHTSHIFT in mods:
+        # Ctrl+Shift+V: only legit when shift ISN'T part of the trigger chord
+        return frozenset({KEY_LEFTCTRL, KEY_LEFTSHIFT}) not in (trigger,) and trigger != TRIGGERS["ctrlshift"]
     return held - mods <= {KEY_V}
 
 
@@ -502,7 +514,8 @@ def pick_keyboard() -> tuple[str, bool]:
 def run_listener(trigger: frozenset[int], on_trigger, on_enter, on_paste) -> None:
     """Read EV_KEY events; fire on_trigger when the trigger chord is pressed
     together (e.g. Ctrl+Shift), on_enter when Enter is pressed, on_paste when
-    Ctrl+V / Ctrl+Shift+V lands while recording (the user's stop-and-insert).
+    a PURE Ctrl+V lands while recording (the user's stop-and-insert).
+    Ctrl+Shift+V is left to the terminal (their paste) — voxy never reacts.
     `select` keeps the idle loop cheap."""
     fd = os.open(DEV[0], os.O_RDONLY | os.O_NONBLOCK)
     log(f"listening on {DEV[0]}")
@@ -532,15 +545,17 @@ def run_listener(trigger: frozenset[int], on_trigger, on_enter, on_paste) -> Non
                     held.add(ecode)
                     if ecode in trigger:
                         # every chord member down? then the chord is armed —
-                        # and if we were already recording, this press ends it
-                        if trigger <= held:
+                        # and if we were already recording, this press ends it.
+                        # V arriving on top disarms: ctrl+shift+V is the
+                        # terminal's paste, never a dictation toggle.
+                        if trigger <= held and KEY_V not in held:
                             if chord_fired:
                                 on_trigger()  # second chord while recording = stop
                                 chord_fired = False
                             else:
                                 chord_armed = True
                     elif ecode == KEY_V and _paste_mods_ok(held, trigger):
-                        paste_armed = True  # ctrl(+shift) was already down
+                        paste_armed = True  # pure ctrl(+shift)+v paste chord
                     elif ecode not in _PASTE_MODS:
                         chord_armed = False  # extra key = some other shortcut
                         paste_armed = False
@@ -561,8 +576,14 @@ def run_listener(trigger: frozenset[int], on_trigger, on_enter, on_paste) -> Non
                     paste_armed = False
                 # fire paste-to-finish on the V *release* — by then the app has
                 # already pasted (the empty clipboard), so our synthetic paste
-                # later can't race the user's keystroke
-                if ecode == KEY_V and evalue == VAL_UP and paste_armed:
+                # later can't race the user's keystroke. ONLY the pure ctrl+V
+                # chord fires it: ctrl+shift+V is the terminal's own paste and
+                # voxy has no business reacting to it (the user pastes, voxy
+                # stops recording via the shift release otherwise — bug).
+                if (
+                    ecode == KEY_V and evalue == VAL_UP and paste_armed
+                    and not (trigger <= held or (KEY_LEFTSHIFT in held or KEY_RIGHTSHIFT in held))
+                ):
                     paste_armed = False
                     if RECORDING["proc"] is not None:
                         on_paste()
