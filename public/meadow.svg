@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e9e7db"/>
+      <stop offset="0.5" stop-color="#e3e6d2"/>
+      <stop offset="1" stop-color="#dde3c6"/>
+    </linearGradient>
+    <linearGradient id="hill1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cdd39a"/>
+      <stop offset="1" stop-color="#b3c27e"/>
+    </linearGradient>
+    <linearGradient id="hill2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9cb567"/>
+      <stop offset="1" stop-color="#87a355"/>
+    </linearGradient>
+    <filter id="b40" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="40"/></filter>
+    <filter id="b24" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="24"/></filter>
+    <filter id="b12" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="12"/></filter>
+    <filter id="b6" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#sky)"/>
+
+  <!-- soft light -->
+  <circle cx="760" cy="120" r="480" fill="#f3f2e4" opacity="0.75" filter="url(#b40)"/>
+  <circle cx="1120" cy="300" r="300" fill="#dfe0c2" opacity="0.6" filter="url(#b40)"/>
+
+  <!-- rolling hills: three layers -->
+  <path d="M0 520 Q 240 440 520 490 T 1040 470 T 1440 500 V 900 H 0 Z" fill="url(#hill1)" filter="url(#b12)"/>
+  <path d="M0 640 Q 300 550 680 620 T 1440 590 V 900 H 0 Z" fill="url(#hill2)" opacity="0.95" filter="url(#b6)"/>
+  <path d="M0 760 Q 360 690 760 745 T 1440 725 V 900 H 0 Z" fill="#7a9a4c" filter="url(#b6)"/>
+
+  <!-- yellow flower patches, blurred -->
+  <g fill="#e0cc55">
+    <ellipse cx="180" cy="700" rx="150" ry="46" opacity="0.5" filter="url(#b24)"/>
+    <ellipse cx="520" cy="800" rx="200" ry="60" opacity="0.45" filter="url(#b24)"/>
+    <ellipse cx="960" cy="720" rx="170" ry="50" opacity="0.5" filter="url(#b24)"/>
+    <ellipse cx="1300" cy="820" rx="220" ry="64" opacity="0.45" filter="url(#b24)"/>
+    <ellipse cx="720" cy="860" rx="260" ry="70" opacity="0.4" filter="url(#b24)"/>
+  </g>
+  <g fill="#e8d966">
+    <circle cx="260" cy="660" r="10" opacity="0.55" filter="url(#b6)"/>
+    <circle cx="420" cy="740" r="12" opacity="0.5" filter="url(#b6)"/>
+    <circle cx="640" cy="700" r="9" opacity="0.6" filter="url(#b6)"/>
+    <circle cx="880" cy="780" r="13" opacity="0.5" filter="url(#b6)"/>
+    <circle cx="1120" cy="690" r="10" opacity="0.55" filter="url(#b6)"/>
+    <circle cx="1380" cy="760" r="12" opacity="0.5" filter="url(#b6)"/>
+    <circle cx="90" cy="820" r="14" opacity="0.45" filter="url(#b12)"/>
+    <circle cx="1000" cy="850" r="16" opacity="0.4" filter="url(#b12)"/>
+  </g>
+
+  <!-- haze band between sky and hills -->
+  <rect y="440" width="1440" height="130" fill="#e3e6d2" opacity="0.85" filter="url(#b24)"/>
+
+  <!-- grain -->
+  <rect width="1440" height="900" filter="url(#grain)" opacity="0.05"/>
+</svg>
