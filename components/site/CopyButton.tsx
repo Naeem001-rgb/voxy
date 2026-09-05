@@ -39,7 +39,7 @@ export default function CopyButton({ text }: { text: string }) {
       type="button"
       onClick={copy}
       aria-label={copied ? "Copied" : "Copy command"}
-      className="absolute right-1.5 top-1.5 flex h-7 w-7 items-center justify-center rounded-md border border-ink/15 bg-white/90 text-ink opacity-0 shadow-[0_2px_8px_-2px_rgba(26,26,23,0.25)] backdrop-blur transition-opacity duration-150 focus-visible:opacity-100 group-hover/cmd:opacity-100"
+      className="absolute right-1.5 top-1.5 flex h-7 w-7 items-center justify-center rounded-md border border-white/20 bg-white/10 text-cream opacity-0 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.4)] backdrop-blur transition-colors duration-150 hover:bg-white/20 focus-visible:opacity-100 group-hover/cmd:opacity-100"
     >
       {copied ? (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 text-forest" aria-hidden>

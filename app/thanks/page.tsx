@@ -85,17 +85,16 @@ function Key({ label }: { label: string }) {
   );
 }
 
-/* Copyable command block. The browser scrollbar is suppressed (the block
-   wraps instead), and a copy button fades in on hover — top-right, like
-   docs sites. Needs a client island for the copy interaction. */
+/* Copyable command block. Ink-dark container, cream code — stands out
+   against the sand card; scrollbar suppressed, copy button on hover. */
 function Command({ lines }: { lines: string[] }) {
   const text = lines.join("\n");
   return (
-    <div className="group/cmd relative mt-2.5 rounded-lg bg-parchment">
-      <pre className="max-w-full overflow-x-auto px-3.5 py-2.5 font-mono text-[12.5px] leading-relaxed text-ink [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div className="group/cmd relative mt-2.5 rounded-lg bg-ink">
+      <pre className="max-w-full overflow-x-auto px-3.5 py-2.5 font-mono text-[12.5px] leading-relaxed text-cream [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {lines.map((l) => (
           <div key={l} className="whitespace-pre">
-            <span className="mr-2 select-none text-clay">$</span>
+            <span className="mr-2 select-none text-sun/80">$</span>
             {l}
           </div>
         ))}
