@@ -238,29 +238,33 @@ export default async function ThanksPage({
                   </p>
                   <Command lines={[`tar -xzf ${FILE_NAME}`, "cd voxy-1.0.0"]} />
                 </li>
-                <li>
+                <li className="flex flex-col">
                   <p className="text-[14px] font-medium text-ink">
                     <span className="mr-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-ink font-mono text-[10.5px] text-cream">2</span>
                     Install
                   </p>
                   <Command lines={["bash install.sh"]} />
-                  <p className="mt-1.5 text-[12px] text-inksoft">
+                  {/* flex-1 pins the caption to the same baseline row as the
+                     Dictate step's keycap text, whatever the block heights */}
+                  <p className="mt-auto pt-2 text-[12.5px] leading-relaxed text-inksoft">
                     Asks for your free Groq key and sets up the service.
                   </p>
                 </li>
-                <li>
+                <li className="flex flex-col">
                   <p className="text-[14px] font-medium text-ink">
                     <span className="mr-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-ink font-mono text-[10.5px] text-cream">3</span>
                     Dictate
                   </p>
-                  <div className="mt-2.5 flex flex-wrap items-center gap-x-1.5 gap-y-2 text-[12.5px] text-inksoft">
+                  <div className="mb-auto mt-2.5 flex flex-wrap items-center gap-x-1.5 gap-y-2 text-[12.5px] text-inksoft">
                     <Key label="Ctrl" />
                     <Key label="Shift" />
                     <span>speak,</span>
                     <Key label="Ctrl" />
                     <Key label="V" />
-                    <span>— text lands at your cursor.</span>
                   </div>
+                  <p className="text-[12.5px] leading-relaxed text-inksoft">
+                    — text lands at your cursor.
+                  </p>
                 </li>
               </ol>
             </section>
