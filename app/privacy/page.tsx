@@ -16,7 +16,6 @@ type Section = {
   id: string;
   title: string;
   paras: string[];
-  sub?: { head: string; body: string };
 };
 
 const SECTIONS: Section[] = [
@@ -160,16 +159,6 @@ export default function PrivacyPage() {
                         {p}
                       </p>
                     ))}
-                    {s.sub && (
-                      <div className="mt-6">
-                        <h3 className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-ink">
-                          {s.sub.head}
-                        </h3>
-                        <p className="mt-2 text-[14px] leading-[1.75] text-ink/80">
-                          {s.sub.body}
-                        </p>
-                      </div>
-                    )}
                   </section>
                 ))}
               </div>

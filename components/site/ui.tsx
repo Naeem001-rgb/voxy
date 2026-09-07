@@ -28,30 +28,6 @@ export function Reveal({
   );
 }
 
-export function SectionHead({
-  eyebrow,
-  title,
-  sub,
-}: {
-  eyebrow: string;
-  title: ReactNode;
-  sub?: string;
-}) {
-  return (
-    <Reveal className="mx-auto max-w-2xl text-center">
-      <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-inksoft/80">
-        ◦ {eyebrow} ◦
-      </p>
-      <h2 className="mt-3 font-serif text-4xl md:text-5xl leading-[1.08] tracking-tight">
-        {title}
-      </h2>
-      {sub ? (
-        <p className="mt-4 text-[17px] leading-relaxed text-inksoft">{sub}</p>
-      ) : null}
-    </Reveal>
-  );
-}
-
 /* Looping audio waveform, pure CSS. Freezes when `paused`.
    `center` renders a symmetric voice-memo wave (pulses from the middle)
    instead of the bottom-anchored equalizer style. */
@@ -120,84 +96,6 @@ export function Marquee({
   );
 }
 
-/* GNOME/Adwaita-style window frame: header bar with controls on the right. */
-export function WindowFrame({
-  title,
-  children,
-  className = "",
-  dark = false,
-}: {
-  title: string;
-  children: ReactNode;
-  className?: string;
-  dark?: boolean;
-}) {
-  return (
-    <div
-      className={`overflow-hidden rounded-xl border shadow-[var(--shadow-lift)] ${
-        dark ? "border-ink/60 bg-ink" : "border-line bg-white/85"
-      } ${className}`}
-    >
-      <div
-        className={`flex items-center px-3 py-2 border-b ${
-          dark ? "bg-[#2a2620] border-white/10" : "bg-parchment/80 border-line"
-        }`}
-      >
-        <span
-          className={`mx-auto font-mono text-[11px] ${
-            dark ? "text-cream/80" : "text-inksoft"
-          }`}
-        >
-          {title}
-        </span>
-        <span className="flex gap-1.5" aria-hidden>
-          <span
-            className={`h-2.5 w-2.5 rounded-[3px] border ${
-              dark ? "border-cream/30" : "border-ink/25"
-            }`}
-          />
-          <span
-            className={`h-2.5 w-2.5 rounded-[3px] border ${
-              dark ? "border-cream/30" : "border-ink/25"
-            }`}
-          />
-          <span className="h-2.5 w-2.5 rounded-[3px] bg-clay/80" />
-        </span>
-      </div>
-      {children}
-    </div>
-  );
-}
-
-/* Fake GNOME top bar so the mockups read unmistakably as Linux. */
-export function GnomeBar({ className = "" }: { className?: string }) {
-  return (
-    <div
-      className={`flex items-center justify-between rounded-t-xl bg-ink px-4 py-1.5 font-mono text-[10px] text-cream/90 ${className}`}
-      aria-hidden
-    >
-      <span>Activities</span>
-      <span>Tue Sep 2 · 21:47</span>
-      <span className="flex items-center gap-1.5">
-        <span className="blink-dot inline-flex items-center gap-1 rounded-full bg-sun px-1.5 py-0.5 font-medium text-ink">
-          <MicIcon className="h-2.5 w-2.5" /> impromptu
-        </span>
-        <span className="inline-block h-2 w-4 rounded-[2px] border border-cream/60" />
-        <span className="inline-block h-2.5 w-2.5 rounded-full border border-cream/60" />
-      </span>
-    </div>
-  );
-}
-
-export function MicIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className={className} aria-hidden>
-      <rect x="9" y="3" width="6" height="11" rx="3" />
-      <path d="M5 11a7 7 0 0 0 14 0M12 18v3" />
-    </svg>
-  );
-}
-
 /* Citrus-ring brand glyph (cream ring + spokes), used in dark pills/cards. */
 export function CitrusGlyph({ className = "" }: { className?: string }) {
   return (
@@ -237,19 +135,6 @@ export function ArrowIcon({ className = "" }: { className?: string }) {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
       <path d="M5 12h14M13 6l6 6-6 6" />
     </svg>
-  );
-}
-
-export function KeyCap({ label, wide = false }: { label: string; wide?: boolean }) {
-  return (
-    <span
-      className={`key-cap relative inline-flex h-10 items-center justify-center rounded-lg border border-ink/30 bg-white px-3 font-mono text-sm shadow-[0_3px_0_0_rgba(29,26,20,0.35)] ${
-        wide ? "min-w-24" : "min-w-14"
-      }`}
-    >
-      <span className="key-ring absolute inset-0 rounded-lg border-2 border-clay" aria-hidden />
-      {label}
-    </span>
   );
 }
 

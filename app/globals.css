@@ -9,7 +9,6 @@
 @theme {
   --color-cream: #faf7ee;
   --color-sand: #f5f0e1;
-  --color-parchment: #f2ecdc;
   --color-ink: #1a1a17;
   --color-inksoft: #57534a;
   --color-sun: #f2c94c;
@@ -67,14 +66,6 @@ button {
 
 .card-lift:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lift);
-}
-
-.glass {
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   box-shadow: var(--shadow-lift);
 }
 
@@ -161,24 +152,9 @@ button {
   50%, 95% { opacity: 0; }
 }
 
-@keyframes key-press {
-  0%, 10%, 22%, 100% { transform: translateY(0); box-shadow: 0 3px 0 0 rgba(26, 26, 23, 0.35); }
-  14% { transform: translateY(2px) scale(0.96); box-shadow: 0 1px 0 0 rgba(26, 26, 23, 0.35); }
-}
-
 @keyframes press-ring {
   0%, 10% { transform: scale(0.7); opacity: 0.85; }
   26%, 100% { transform: scale(2); opacity: 0; }
-}
-
-@keyframes strike-grow {
-  0%, 35% { width: 0; }
-  62%, 100% { width: 100%; }
-}
-
-@keyframes blink-dot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.25; }
 }
 
 @keyframes fade-up {
@@ -217,29 +193,6 @@ button {
   vertical-align: -0.15em;
   background: currentColor;
   animation: caret-blink 1s steps(1) infinite;
-}
-
-.key-cap {
-  animation: key-press 2.6s ease-in-out infinite;
-}
-
-.key-ring {
-  animation: press-ring 2.6s ease-out infinite;
-}
-
-.strike-line::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 52%;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--color-clay);
-  animation: strike-grow 6s ease-in-out infinite;
-}
-
-.blink-dot {
-  animation: blink-dot 1.6s ease-in-out infinite;
 }
 
 /* ---------- wall of love (teardown-matched) ---------- */
@@ -296,10 +249,6 @@ button {
   .animate-kenburns,
   .marquee-track,
   .wave-bar,
-  .key-cap,
-  .key-ring,
-  .strike-line::after,
-  .blink-dot,
   .fade-up {
     animation: none !important;
   }
