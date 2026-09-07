@@ -19,6 +19,7 @@ const COMPANY = [
 const LEGAL = [
   { href: "/privacy", label: "Privacy policy" },
   { href: "/terms", label: "Terms & conditions" },
+  { href: "/refund", label: "Refund policy" },
 ];
 
 export default function Footer() {

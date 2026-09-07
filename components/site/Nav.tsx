@@ -85,8 +85,8 @@ export default function Nav() {
         aria-label="Main"
         className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 rounded-full border border-line bg-white/85 py-2 pl-5 pr-2 shadow-[0_10px_30px_-16px_rgba(26,26,23,0.3)] backdrop-blur-md"
       >
-        {/* brand */}
-        <a href="#" className="flex shrink-0 items-center gap-2">
+        {/* brand — back to home */}
+        <a href="/" className="flex shrink-0 items-center gap-2" aria-label={`${BRAND.name} home`}>
           <span className="flex h-7 w-7 items-center justify-center rounded-full bg-ink text-sun">
             <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden>
               <circle cx="12" cy="12" r="4" />
